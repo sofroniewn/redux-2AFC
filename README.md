@@ -20,4 +20,4 @@ npm start
 ```
 
 ## Game
-<img src="screenshot.png" width="350">
+<img src="screenshot.png" height="200"><img src="log.png" height="200">
