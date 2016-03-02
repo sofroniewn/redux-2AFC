@@ -38,10 +38,9 @@ function choice (state, action) {
 
 
 
-
 var PAUSE = require('../actions/actions.js').PAUSE
 
-function play (state, action) {
+function status (state, action) {
   if (typeof state === 'undefined') {
     return false
   }
@@ -54,4 +53,4 @@ function play (state, action) {
 }
 
 module.exports = combineReducers({choice,
-  play})
+  status})
