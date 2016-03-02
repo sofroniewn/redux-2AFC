@@ -3,13 +3,26 @@ var applyMiddleware = require('redux').applyMiddleware
 var reducer = require('./reducers/index')
 
 const logger = store => next => action => {
-  console.log('dispatching', action, Date.now())
+  console.log('dispatching', action, 'time:', Date.now())
   var result = next(action)
   console.log('next state', store.getState())
   return result
 }
 
-var store = createStore(reducer, applyMiddleware(logger))
+var timeoutId = setTimeout(function () {
+  store.dispatch({ type: 'TIMEOUT', value: Math.round((Math.random()))})
+}, 1000)
+
+const timeoutScheduler = store => next => action => {
+  clearTimeout(timeoutId)
+  timeoutId = setTimeout(function () {
+    store.dispatch({ type: 'TIMEOUT', value: Math.round((Math.random()))})
+  }, 1000)
+  
+  next(action)
+}
+
+var store = createStore(reducer, applyMiddleware(logger, timeoutScheduler))
 
 document.getElementById('zero')
   .addEventListener('click', function () {
