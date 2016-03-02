@@ -21,4 +21,5 @@ npm start
 
 ## Game
 <img src="screenshot.png" height="200">
-<img src="log.png" height="150">
+
+<img src="log.png" height="120">
