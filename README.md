@@ -18,3 +18,6 @@ then install and run
 npm install
 npm start
 ```
+
+## Game
+<img src="screenshot.png" width="350">
