@@ -1,6 +1,15 @@
 var createStore = require('redux').createStore
+var applyMiddleware = require('redux').applyMiddleware
 var reducer = require('./reducers/index')
-var store = createStore(reducer)
+
+const logger = store => next => action => {
+  console.log('dispatching', action, Date.now())
+  var result = next(action)
+  console.log('next state', store.getState())
+  return result
+}
+
+var store = createStore(reducer, applyMiddleware(logger))
 
 document.getElementById('zero')
   .addEventListener('click', function () {
