@@ -1,6 +1,5 @@
 var createStore = require('redux').createStore
 var reducer = require('./reducers/index')
-
 var store = createStore(reducer)
 
 document.getElementById('zero')
@@ -27,3 +26,8 @@ function render() {
 
 render()
 store.subscribe(render)
+
+
+setTimeout(function () {
+  store.dispatch({ type: 'TIMEOUT', value: Math.round((Math.random()))})
+}, 1000)
