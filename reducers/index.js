@@ -3,6 +3,8 @@ var ZERO = require('../actions/actions.js').ZERO
 var ONE = require('../actions/actions.js').ONE
 var TIMEOUT = require('../actions/actions.js').TIMEOUT
 var RESET = require('../actions/actions.js').RESET
+var TIMER_STARTED = require('../actions/actions.js').TIMER_STARTED
+var TIMER_STOPPED = require('../actions/actions.js').TIMER_STOPPED
 
 function choice (state, action) {
   if (typeof state === 'undefined') {
@@ -52,5 +54,20 @@ function status (state, action) {
   }
 }
 
+
+
+function timer (state, action) {
+  if (typeof state === 'undefined') {
+    return null
+  }
+  switch (action.type) {
+    case TIMER_STARTED:
+    case TIMER_STOPPED:
+      return action.payload
+    default:
+      return state
+  }
+}
+
 module.exports = combineReducers({choice,
-  status})
+  status, timer})
