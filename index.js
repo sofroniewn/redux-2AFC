@@ -26,8 +26,3 @@ function render() {
 
 render()
 store.subscribe(render)
-
-
-setTimeout(function () {
-  store.dispatch({ type: 'TIMEOUT', value: Math.round((Math.random()))})
-}, 1000)
