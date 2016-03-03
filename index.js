@@ -23,13 +23,11 @@ var store = createStore(reducer, applyMiddleware(thunk, logger))
 document.getElementById('zero')
   .addEventListener('click', function () {
     store.dispatch(actions.zero())
-    store.dispatch(actions.startTimer())
   })
 
 document.getElementById('one')
   .addEventListener('click', function () {
     store.dispatch(actions.one())
-    store.dispatch(actions.startTimer())
   })
 
 document.getElementById('reset')
@@ -40,7 +38,6 @@ document.getElementById('reset')
 document.getElementById('pause')
   .addEventListener('click', function () {
     store.dispatch(actions.pause())
-    store.dispatch(actions.toggleTimer())
   })
 
 
