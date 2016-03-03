@@ -39,17 +39,25 @@ function pause() {
 function startTimer() {
   return (dispatch, getState) => {
     clearInterval(getState().timer)    
-    const timerId = setTimeout(() => {
+    var timerId = setInterval(() => {
         dispatch(timeout())
       }, 1000)
     dispatch({type: TIMER_STARTED, payload: timerId}) // a store supposed to save `timerId`
   }
 }
 
-function stopTimer() {
+function toggleTimer() {
   return (dispatch, getState) => {
-    clearInterval(getState().timer)    
-    dispatch({type: TIMER_STOPPED, payload: null}) // now store supposed to set `timerId` to `null` 
+    var timerId = getState().timer
+    if (timerId === null) {
+      var timerId = setInterval(() => {
+        dispatch(timeout())
+      }, 1000)
+      dispatch({type: TIMER_STARTED, payload: timerId}) // a store supposed to save `timerId`
+    } else {
+      clearInterval(getState().timer)    
+      dispatch({type: TIMER_STOPPED, payload: null}) // now store supposed to set `timerId` to `null` 
+    }
   }
 }
 
@@ -72,5 +80,5 @@ module.exports = {
   reset: reset,
   pause: pause,
   startTimer: startTimer,
-  stopTimer: stopTimer
+  toggleTimer: toggleTimer
 }

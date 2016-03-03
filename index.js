@@ -7,7 +7,7 @@ var timeout = require('./actions/actions.js').timeout
 var reset = require('./actions/actions.js').reset
 var pause = require('./actions/actions.js').pause
 var startTimer = require('./actions/actions.js').startTimer
-var stopTimer = require('./actions/actions.js').stopTimer
+var toggleTimer = require('./actions/actions.js').toggleTimer
 
 // Creat store with logging middleware
 const logger = store => next => action => {
@@ -39,7 +39,7 @@ document.getElementById('reset')
 document.getElementById('pause')
   .addEventListener('click', function () {
     store.dispatch(pause())
-    stopTimer()(store.dispatch, store.getState)
+    toggleTimer()(store.dispatch, store.getState)
   })
 
 
