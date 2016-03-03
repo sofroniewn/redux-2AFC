@@ -16,7 +16,7 @@ var store = createStore(reducer, applyMiddleware(logger))
 document.getElementById('zero')
   .addEventListener('click', function () {
     store.dispatch(actions.zero())
-    startTimer()(store.dispatch, store.getState)
+    actions.startTimer()(store.dispatch, store.getState)
   })
 
 document.getElementById('one')
