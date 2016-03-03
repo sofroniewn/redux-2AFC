@@ -1,13 +1,7 @@
 var createStore = require('redux').createStore
 var applyMiddleware = require('redux').applyMiddleware
 var reducer = require('./reducers/index')
-var zero = require('./actions/actions.js').zero
-var one = require('./actions/actions.js').one
-var timeout = require('./actions/actions.js').timeout
-var reset = require('./actions/actions.js').reset
-var pause = require('./actions/actions.js').pause
-var startTimer = require('./actions/actions.js').startTimer
-var toggleTimer = require('./actions/actions.js').toggleTimer
+var actions = require('./actions/actions.js')
 
 // Creat store with logging middleware
 const logger = store => next => action => {
@@ -21,25 +15,25 @@ var store = createStore(reducer, applyMiddleware(logger))
 // Connect inputs to dispatches
 document.getElementById('zero')
   .addEventListener('click', function () {
-    store.dispatch(zero())
+    store.dispatch(actions.zero())
     startTimer()(store.dispatch, store.getState)
   })
 
 document.getElementById('one')
   .addEventListener('click', function () {
-    store.dispatch(one())
-    startTimer()(store.dispatch, store.getState)
+    store.dispatch(actions.one())
+    actions.startTimer()(store.dispatch, store.getState)
   })
 
 document.getElementById('reset')
   .addEventListener('click', function () {
-    store.dispatch(reset())
+    store.dispatch(actions.reset())
   })
 
 document.getElementById('pause')
   .addEventListener('click', function () {
-    store.dispatch(pause())
-    toggleTimer()(store.dispatch, store.getState)
+    store.dispatch(actions.pause())
+    actions.toggleTimer()(store.dispatch, store.getState)
   })
 
 
