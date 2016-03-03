@@ -2,12 +2,17 @@ var createStore = require('redux').createStore
 var applyMiddleware = require('redux').applyMiddleware
 var reducer = require('./reducers/index')
 var actions = require('./actions/actions.js')
+var now = require('performance-now')
 
 // Creat store with logging middleware
 const logger = store => next => action => {
-  console.log('dispatching', action, 'time:', Date.now())
+  var time = now()
   var result = next(action)
-  console.log('next state', store.getState())
+  var obj = {'time': time.toFixed(2),
+    'action': action,
+    'state': store.getState()
+    }
+  console.log(JSON.stringify(obj))
   return result
 }
 var store = createStore(reducer, applyMiddleware(logger))
