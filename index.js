@@ -1,5 +1,6 @@
 var createStore = require('redux').createStore
 var applyMiddleware = require('redux').applyMiddleware
+var thunk = require('redux-thunk')
 var reducer = require('./reducers/index')
 var actions = require('./actions/actions.js')
 var now = require('performance-now')
@@ -15,19 +16,20 @@ const logger = store => next => action => {
   console.log(JSON.stringify(obj))
   return result
 }
-var store = createStore(reducer, applyMiddleware(logger))
+var store = createStore(reducer, applyMiddleware(thunk, logger))
 
 // Connect inputs to dispatches
+// could absorb startTimer into zero action, making it an async action creator
 document.getElementById('zero')
   .addEventListener('click', function () {
     store.dispatch(actions.zero())
-    actions.startTimer()(store.dispatch, store.getState)
+    store.dispatch(actions.startTimer())
   })
 
 document.getElementById('one')
   .addEventListener('click', function () {
     store.dispatch(actions.one())
-    actions.startTimer()(store.dispatch, store.getState)
+    store.dispatch(actions.startTimer())
   })
 
 document.getElementById('reset')
@@ -38,7 +40,7 @@ document.getElementById('reset')
 document.getElementById('pause')
   .addEventListener('click', function () {
     store.dispatch(actions.pause())
-    actions.toggleTimer()(store.dispatch, store.getState)
+    store.dispatch(actions.toggleTimer())
   })
 
 
