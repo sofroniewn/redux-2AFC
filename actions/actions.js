@@ -16,14 +16,6 @@ const TIMER_STOPPED = 'TIMER_STOPPED'
  * action creators
  */
 
-function zero() {
-  return {type: ZERO, value: Math.round(Math.random())}
-}
-
-function one() {
-  return {type: ONE, value: Math.round(Math.random())}
-}
-
 function timeout() {
   return {type: TIMEOUT, value: Math.round(Math.random())}
 }
@@ -32,12 +24,9 @@ function reset() {
   return {type: RESET, value: Math.round(Math.random())}
 }
 
-function pause() {
-  return {type: PAUSE}
-}
-
-function startTimer() {
+function zero() {
   return (dispatch, getState) => {
+    dispatch({type: ZERO, value: Math.round(Math.random())})
     clearInterval(getState().timer)    
     var timerId = setInterval(() => {
         dispatch(timeout())
@@ -46,8 +35,20 @@ function startTimer() {
   }
 }
 
-function toggleTimer() {
+function one() {
   return (dispatch, getState) => {
+    dispatch({type: ONE, value: Math.round(Math.random())})
+    clearInterval(getState().timer)    
+    var timerId = setInterval(() => {
+        dispatch(timeout())
+      }, 1000)
+    dispatch({type: TIMER_STARTED, payload: timerId}) // a store supposed to save `timerId`
+  }
+}
+
+function pause() {
+  return (dispatch, getState) => {
+    dispatch({type: PAUSE})
     var timerId = getState().timer
     if (timerId === null) {
       var timerId = setInterval(() => {
@@ -60,7 +61,6 @@ function toggleTimer() {
     }
   }
 }
-
 
 /*
  * exports
@@ -79,6 +79,4 @@ module.exports = {
   timeout: timeout,
   reset: reset,
   pause: pause,
-  startTimer: startTimer,
-  toggleTimer: toggleTimer
 }
