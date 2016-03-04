@@ -19,7 +19,6 @@ const logger = store => next => action => {
 var store = createStore(reducer, applyMiddleware(thunk, logger))
 
 // Connect inputs to dispatches
-// could absorb startTimer into zero action, making it an async action creator
 document.getElementById('zero')
   .addEventListener('click', function () {
     store.dispatch(actions.zero())
