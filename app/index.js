@@ -36,11 +36,8 @@ var store = createStore(reducer, applyMiddleware(thunk, logger))
 
 
 var board = new five.Board()
-console.log('Hello')
-
 // Connect inputs to dispatches
 board.on('ready', function () {
-  console.log('Board Ready')
   zero = new five.Button(2)
   one = new five.Button(3)
 
