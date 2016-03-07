@@ -26,26 +26,29 @@ function reset() {
 
 function zero() {
   return (dispatch, getState) => {
-    dispatch({type: ZERO, value: Math.round(Math.random())})
-    clearInterval(getState().timer)    
-    var timerId = setInterval(() => {
-        dispatch(timeout())
-      }, 1000)
-    dispatch({type: TIMER_STARTED, payload: timerId}) // a store supposed to save `timerId`
+    if (getState().status === true) {
+      dispatch({type: ZERO, value: Math.round(Math.random())})
+      clearInterval(getState().timer)    
+      var timerId = setInterval(() => {
+          dispatch(timeout())
+        }, 5000)
+      dispatch({type: TIMER_STARTED, payload: timerId}) // a store supposed to save `timerId`
+    }
   }
 }
 
 function one() {
   return (dispatch, getState) => {
-    dispatch({type: ONE, value: Math.round(Math.random())})
-    clearInterval(getState().timer)    
-    var timerId = setInterval(() => {
-        dispatch(timeout())
-      }, 1000)
-    dispatch({type: TIMER_STARTED, payload: timerId}) // a store supposed to save `timerId`
+    if (getState().status === true) {
+      dispatch({type: ONE, value: Math.round(Math.random())})
+      clearInterval(getState().timer)    
+      var timerId = setInterval(() => {
+          dispatch(timeout())
+        }, 5000)
+      dispatch({type: TIMER_STARTED, payload: timerId}) // a store supposed to save `timerId`
+    }
   }
 }
-
 function pause() {
   return (dispatch, getState) => {
     dispatch({type: PAUSE})
@@ -53,7 +56,7 @@ function pause() {
     if (timerId === null) {
       var timerId = setInterval(() => {
         dispatch(timeout())
-      }, 1000)
+      }, 5000)
       dispatch({type: TIMER_STARTED, payload: timerId}) // a store supposed to save `timerId`
     } else {
       clearInterval(getState().timer)    
