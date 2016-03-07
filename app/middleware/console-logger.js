@@ -11,5 +11,4 @@ const logger = store => next => action => {
   return result
 }
 
-
 module.exports = logger
