@@ -19,6 +19,27 @@ const logger = store => next => action => {
 var store = createStore(reducer, applyMiddleware(thunk, logger))
 
 
+// Connect inputs to dispatches
+document.getElementById('zero')
+  .addEventListener('click', function () {
+    store.dispatch(actions.zero())
+  })
+
+document.getElementById('one')
+  .addEventListener('click', function () {
+    store.dispatch(actions.one())
+  })
+
+document.getElementById('reset')
+  .addEventListener('click', function () {
+    store.dispatch(actions.reset())
+  })
+
+document.getElementById('pause')
+  .addEventListener('click', function () {
+    store.dispatch(actions.pause())
+  })
+  
 // var five = require('johnny-five')
 // var board = new five.Board()
 
