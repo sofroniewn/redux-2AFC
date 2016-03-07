@@ -2,9 +2,9 @@
   "name": "2AFC-example",
   "version": "0.0.0",
   "description": "2AFC using redux",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "start": "browserify index.js -o bundle.js && http-server"
+    "start": "electron ."
   },
   "keywords": [
     "redux",

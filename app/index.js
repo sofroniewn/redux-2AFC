@@ -18,26 +18,36 @@ const logger = store => next => action => {
 }
 var store = createStore(reducer, applyMiddleware(thunk, logger))
 
-// Connect inputs to dispatches
-document.getElementById('zero')
-  .addEventListener('click', function () {
-    store.dispatch(actions.zero())
-  })
 
-document.getElementById('one')
-  .addEventListener('click', function () {
-    store.dispatch(actions.one())
-  })
+// var five = require('johnny-five')
+// var board = new five.Board()
 
-document.getElementById('reset')
-  .addEventListener('click', function () {
-    store.dispatch(actions.reset())
-  })
+// // Connect inputs to dispatches
+// board.on('Ready', function () {
 
-document.getElementById('pause')
-  .addEventListener('click', function () {
-    store.dispatch(actions.pause())
-  })
+//   zero = new five.Button(2)
+//   one = new five.Button(3)
+
+//   zero.on('press', function() {
+//     store.dispatch(actions.zero())
+//   })
+
+//   one.on('press', function() {
+//     store.dispatch(actions.one())
+//   })
+
+//   document.getElementById('reset')
+//     .addEventListener('click', function () {
+//       store.dispatch(actions.reset())
+//     })
+
+//   document.getElementById('pause')
+//     .addEventListener('click', function () {
+//       store.dispatch(actions.pause())
+//     })
+// })
+
+
 
 
 // Connect state to outputs
