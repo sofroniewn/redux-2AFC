@@ -1,5 +1,5 @@
 var combineReducers = require('redux').combineReducers
-var actions = require('../actions/actions.js')
+var actions = require('../actions/index.js')
 
 function choice (state, action) {
   if (typeof state === 'undefined') {
