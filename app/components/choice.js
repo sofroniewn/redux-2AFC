@@ -1,4 +1,4 @@
-var actions = require('../actions/index.js')
+var actions = require('../actions/choice.js')
 
 var valueEl = document.getElementById('value')
 var zeroButtonEL = document.getElementById('zero')
