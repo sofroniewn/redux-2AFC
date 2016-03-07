@@ -1,12 +1,13 @@
 var combineReducers = require('redux').combineReducers
-var actions = require('../actions/index.js')
+var actionsCh = require('../actions/choice.js')
+var actionsCo = require('../actions/controls.js')
 
 function choice (state, action) {
   if (typeof state === 'undefined') {
     return {value: 0, correct: 0, wrong: 0, missed: 0}
   }
   switch (action.type) {
-    case actions.ZERO:
+    case actionsCh.ZERO:
       switch (state.value) {
         case 0:
           return {value: action.value, correct: state.correct + 1, wrong: state.wrong, missed: state.missed}
@@ -15,7 +16,7 @@ function choice (state, action) {
         default:
            return state
       }
-    case actions.ONE:
+    case actionsCh.ONE:
        switch (state.value) {
          case 0:
           return {value: action.value, correct: state.correct, wrong: state.wrong + 1, missed: state.missed}
@@ -24,9 +25,9 @@ function choice (state, action) {
         default:
           return state
       }
-    case actions.TIMEOUT:
+    case actionsCh.TIMEOUT:
       return {value: action.value, correct: state.correct, wrong: state.wrong, missed: state.missed + 1}        
-    case actions.RESET:
+    case actionsCo.RESET:
       return {value: action.value, correct: 0, wrong: 0, missed: 0}
     default:
       return state
@@ -39,22 +40,20 @@ function status (state, action) {
     return false
   }
   switch (action.type) {
-    case actions.PAUSE:
+    case actionsCo.PAUSE:
       return !state
     default:
       return state
   }
 }
 
-
-
 function timer (state, action) {
   if (typeof state === 'undefined') {
     return null
   }
   switch (action.type) {
-    case actions.TIMER_STARTED:
-    case actions.TIMER_STOPPED:
+    case actionsCo.TIMER_STARTED:
+    case actionsCo.TIMER_STOPPED:
       return action.payload
     default:
       return state
