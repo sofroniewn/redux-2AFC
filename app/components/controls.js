@@ -1,35 +1,45 @@
+var hx = require('hxdx').hx
+var dx = require('hxdx').dx
 var actions = require('../actions/controls.js')
 
-document.getElementById('reset')
-  .addEventListener('click', function () {
-    store.dispatch(actions.reset())
-})
+module.exports = function (state) {
+  function reset () {
+    dx(actions.reset())
+  }
 
-document.getElementById('pause')
-  .addEventListener('click', function () {
-    store.dispatch(actions.pause())
-})
+  function pause () {
+    dx(actions.pause())
+  }
 
-// Connect state to outputs
-var correctEl = document.getElementById('correct')
-var wrongEl = document.getElementById('wrong')
-var missedEl = document.getElementById('missed')
-var statusEL = document.getElementById('status')
-var statusButtonEL = document.getElementById('pause')
+  var status
+  var playChoice
 
-
-function render (state) {
-  correctEl.innerHTML = state.choice.correct
-  wrongEl.innerHTML = state.choice.wrong
-  missedEl.innerHTML = state.choice.missed
   if (state.status === true) {
-    statusEL.innerHTML = 'Playing!'
-    statusButtonEL.innerHTML = 'pause'
+    playStatus = 'Playing!'
+    playChoice = 'pause'
   }
   else {
-    statusEL.innerHTML = 'Paused'
-    statusButtonEL.innerHTML = 'start'
+    playStatus = 'Paused'
+    playChoice = 'start'
   }
-}
 
-module.exports = {render}
+  return hx`
+    <div>
+      <p>
+        <button onclick=${reset} >reset</button>
+        <button onclick=${pause} >${playChoice}</button>
+      </p>
+      <p>
+        <span>${playStatus}</span>
+      </p>
+      <p>
+        Correct: <span id="correct">${state.choice.correct}</span>
+      </p>
+      <p>
+        Wrong: <span id="wrong">${state.choice.wrong}</span>
+      </p>
+      <p>
+        Missed: <span id="missed">${state.choice.missed}</span>
+      </p>
+  </div>`
+}
