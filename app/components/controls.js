@@ -1,4 +1,4 @@
-var actions = require('../actions/index.js')
+var actions = require('../actions/controls.js')
 
 document.getElementById('reset')
   .addEventListener('click', function () {

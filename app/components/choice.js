@@ -14,7 +14,7 @@ process.__defineGetter__('stdin', function() {
   return process.__stdin
 })
 
-var actions = require('../actions/index.js')
+var actions = require('../actions/choice.js')
 
 var board = new five.Board()
 // Connect inputs to dispatches
