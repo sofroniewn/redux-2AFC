@@ -32,14 +32,5 @@ module.exports = function (state) {
       <p>
         <span>${playStatus}</span>
       </p>
-      <p>
-        Correct: <span id="correct">${state.choice.correct}</span>
-      </p>
-      <p>
-        Wrong: <span id="wrong">${state.choice.wrong}</span>
-      </p>
-      <p>
-        Missed: <span id="missed">${state.choice.missed}</span>
-      </p>
   </div>`
 }

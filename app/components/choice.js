@@ -25,8 +25,5 @@ module.exports = function (state) {
     <div>
       <button style=${style.button} onclick=${zero} >zero</button>
       <button style=${style.button} onclick=${one} >one</button>
-      <p>
-        <span>${state.choice.value}</span>
-      </p>
     </div>`
 }
