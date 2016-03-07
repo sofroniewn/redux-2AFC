@@ -40,36 +40,6 @@ document.getElementById('pause')
     store.dispatch(actions.pause())
   })
   
-// var five = require('johnny-five')
-// var board = new five.Board()
-
-// // Connect inputs to dispatches
-// board.on('Ready', function () {
-
-//   zero = new five.Button(2)
-//   one = new five.Button(3)
-
-//   zero.on('press', function() {
-//     store.dispatch(actions.zero())
-//   })
-
-//   one.on('press', function() {
-//     store.dispatch(actions.one())
-//   })
-
-//   document.getElementById('reset')
-//     .addEventListener('click', function () {
-//       store.dispatch(actions.reset())
-//     })
-
-//   document.getElementById('pause')
-//     .addEventListener('click', function () {
-//       store.dispatch(actions.pause())
-//     })
-// })
-
-
-
 
 // Connect state to outputs
 var valueEl = document.getElementById('value')
