@@ -1,44 +1,26 @@
-var Readable = require('stream').Readable  
-var util = require('util')  
-var five = require('johnny-five')
-
-util.inherits(MyStream, Readable)  
-function MyStream(opt) {  
-  Readable.call(this, opt)
-}
-MyStream.prototype._read = function() {};  
-// hook in our stream
-process.__defineGetter__('stdin', function() {  
-  if (process.__stdin) return process.__stdin
-  process.__stdin = new MyStream()
-  return process.__stdin
-})
-
 var actions = require('../actions/index.js')
 
-var board = new five.Board()
-// Connect inputs to dispatches
-board.on('ready', function () {
-  zero = new five.Button(2)
-  one = new five.Button(3)
+var valueEl = document.getElementById('value')
+var zeroButtonEL = document.getElementById('zero')
+var oneButtonEL = document.getElementById('one')
 
-  zero.on('press', function() {
-    store.dispatch(actions.zero())
-  })
-
-  one.on('press', function() {
-    store.dispatch(actions.one())
-  })
+zeroButtonEL.addEventListener('click', function () {
+  store.dispatch(actions.zero())
 })
 
-var valueEl = document.getElementById('value')
+oneButtonEL.addEventListener('click', function () {
+  store.dispatch(actions.one())
+})
 
 function render(state) {
-  if (state.choice.value === 0) {
-    valueEl.innerHTML = 'Red'
+  valueEl.innerHTML = state.choice.value
+  if (state.status === true) {
+    zeroButtonEL.disabled = false
+    oneButtonEL.disabled = false
   }
   else {
-    valueEl.innerHTML = 'Blue'
+    zeroButtonEL.disabled = true
+    oneButtonEL.disabled = true
   }
 }
 
