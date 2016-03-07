@@ -11,7 +11,6 @@ module.exports = function (state) {
     dx(actions.one())
   }
 
-
   var style = {
     buttonOn: {
     },
