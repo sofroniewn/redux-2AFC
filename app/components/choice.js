@@ -16,11 +16,14 @@ process.__defineGetter__('stdin', function() {
 
 var actions = require('../actions/choice.js')
 
+var zeroLed = null
+var oneLed = null
+
 var board = new five.Board()
 // Connect inputs to dispatches
 board.on('ready', function () {
-  zero = new five.Button(2)
-  one = new five.Button(3)
+  var zero = new five.Button(2)
+  var one = new five.Button(3)
 
   zero.on('press', function() {
     store.dispatch(actions.zero())
@@ -29,17 +32,32 @@ board.on('ready', function () {
   one.on('press', function() {
     store.dispatch(actions.one())
   })
+
+  zeroLed = new five.Led(4)
+  oneLed = new five.Led(5)
+
 })
 
 var valueEl = document.getElementById('value')
 
 function render(state) {
-  if (state.choice.value === 0) {
-    valueEl.innerHTML = 'Red'
+  if (state.status === true) {
+    if (state.choice.value === 0) {
+      valueEl.innerHTML = 'Red'
+      zeroLed.on()
+      oneLed.off()
+    }
+    else {
+      valueEl.innerHTML = 'Blue'
+      zeroLed.off()
+      oneLed.on()
+    }
+  } else {
+    valueEl.innerHTML = ''
+    zeroLed.off()
+    oneLed.off()    
   }
-  else {
-    valueEl.innerHTML = 'Blue'
-  }
+
 }
 
 module.exports = {render}
