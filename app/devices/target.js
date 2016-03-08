@@ -1,15 +1,8 @@
 var five = require('johnny-five')
-var board = require('../board')
 var actions = require('../actions/choice.js')
 
-var zeroLed = null
-var oneLed = null
-
-// Connect inputs to dispatches
-board.on('ready', function () {
-  zeroLed = new five.Led(4)
-  oneLed = new five.Led(5)
-})
+zeroLed = new five.Led(4)
+oneLed = new five.Led(5)
 
 function render(state) {
   if (state.status === true) {
