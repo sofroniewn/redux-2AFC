@@ -16,9 +16,8 @@ function render(state) {
     }
   } else {
     zeroLed.off()
-    oneLed.off()    
+    oneLed.off()
   }
-
 }
 
 module.exports = {render}
