@@ -17,3 +17,7 @@ function render() {
   devices.render(store.getState())
 }
 store.subscribe(render)
+
+
+now = require('performance-now')
+console.log(now())
