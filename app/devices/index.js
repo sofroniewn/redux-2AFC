@@ -1,8 +1,9 @@
 var choice = require('./choice.js')
 var target = require('./target.js')
 
-function render(state) {
-  target.render(state)
+module.exports = function (state) {
+  return new Array().concat(
+    choice(),
+    target(state)
+  )
 }
-
-module.exports = {render}

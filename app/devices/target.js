@@ -1,23 +1,20 @@
-var five = require('johnny-five')
-var actions = require('../actions/choice.js')
-
-zeroLed = new five.Led(4)
-oneLed = new five.Led(5)
-
-function render(state) {
+module.exports = function (state) {
+  var val = [0, 0]
+  
   if (state.status === true) {
     if (state.choice.value === 0) {
-      zeroLed.on()
-      oneLed.off()
+      val[0] = 1
     }
     else {
-      zeroLed.off()
-      oneLed.on()
+      val[1] = 1
     }
-  } else {
-    zeroLed.off()
-    oneLed.off()
   }
-}
 
-module.exports = {render}
+  return [ 
+    {'mode': 1,
+      'value': val[0]
+    },
+    {'mode': 1,
+      'value': val[1]
+    }]
+}
