@@ -30,6 +30,10 @@ function update(outputList, pinmap) {
   })
 }
 
+// function start() {
+
+// }
+
 module.exports = {
   board: board,
   update: update,

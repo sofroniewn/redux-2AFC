@@ -12,7 +12,13 @@ module.exports = {
       bx.update(devices(store.getState()), pinmap)
     }
     
-    bx.board.on('ready', function () {
+    // bx.board.on('ready', function () {
+    //   console.log('Board ready')
+    //   bx.init(devices(store.getState()), pinmap)
+    //   store.subscribe(update)
+    // })
+
+    bx.board.open(bx.err, function () {
       console.log('Board ready')
       bx.init(devices(store.getState()), pinmap)
       store.subscribe(update)
