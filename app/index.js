@@ -13,7 +13,13 @@ var devices = require('./devices')
 var store = createStore(reducer, applyMiddleware(thunk, logger))
 
 hxdx.render(components, store)
+//bxdx.render(devices, store, bx)
 
-//var pinmap = [2, 3, 4, 5]
-var pinmap = ['FIO0', 'FIO2', 'FIO1', 'FIO3']
-bxdx.render(devices, store, bx, pinmap)
+
+// for mock
+var bx = require('./bxdx/bxdx-mock.js')
+bxdx.render(devices, store, bx)
+function mock (state) {
+  return bx(devices(store.getState()))
+}
+hxdx.render(mock, store)

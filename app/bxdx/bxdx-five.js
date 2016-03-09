@@ -1,3 +1,7 @@
+//var pinmap = [2, 3, 4, 5]
+var pinmap = ['FIO0', 'FIO2', 'FIO1', 'FIO3']
+
+
 var Readable = require('stream').Readable  
 var util = require('util')  
 var five = require('johnny-five')
@@ -23,7 +27,7 @@ var _ = require('lodash')
 
 var pins
 
-function init(outputList, pinmap) {
+function init(outputList) {
   pins = _.map(pinmap, function (address, key){
     return new five.Pin({pin: address, mode: outputList[key]['mode']})
   })
@@ -39,7 +43,7 @@ function init(outputList, pinmap) {
   })
 }
 
-function update(outputList, pinmap) {
+function update(outputList) {
   _(outputList).forEach(function(output, key) {
     if(output['mode'] === 1) {
       pins[key].write(output['value'])

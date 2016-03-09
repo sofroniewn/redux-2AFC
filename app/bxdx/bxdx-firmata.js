@@ -2,11 +2,14 @@ var Board = require('firmata')
 var board = new Board('/dev/cu.usbmodem1411')
 var _ = require('lodash')
 
+//var pinmap = [2, 3, 4, 5]
+var pinmap = ['FIO0', 'FIO2', 'FIO1', 'FIO3']
+
 // board.on('ready', function () {
 //   console.log('Board ready')
 // })
 
-function init(outputList, pinmap) {
+function init(outputList) {
   _(outputList).forEach(function(output, key) {
     if(output['mode'] === 0) {
       board.pinMode(pinmap[key], board.MODES.INPUT)
@@ -22,7 +25,7 @@ function init(outputList, pinmap) {
   })
 }
 
-function update(outputList, pinmap) {
+function update(outputList) {
   _(outputList).forEach(function(output, key) {
     if(output['mode'] === 1) {
       board.digitalWrite(pinmap[key], output['value'])
