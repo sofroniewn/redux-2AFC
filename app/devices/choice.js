@@ -1,14 +1,17 @@
 var dx = require('hxdx').dx
-var five = require('johnny-five')
 var actions = require('../actions/choice.js')
 
-var zero = new five.Button(2)
-var one = new five.Button(3)
+module.exports = function (state) {
+  // function zero () {
+  //   dx(actions.zero())
+  // }
 
-zero.on('press', function() {
-  dx(actions.zero())
-})
+  // function one () {
+  //   dx(actions.one())
+  // }
 
-one.on('press', function() {
-  dx(actions.one())
-})
+  return {
+    'DI0': 1,
+    'DI1': 2,
+  }
+}
