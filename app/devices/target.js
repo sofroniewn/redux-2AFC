@@ -11,10 +11,12 @@ module.exports = function (state) {
   }
 
   return [ 
-    {'mode': 1,
-      'value': val[0]
+    {id: 'target-zero',
+      mode: 1,
+      value: val[0]
     },
-    {'mode': 1,
-      'value': val[1]
+    {id: 'target-one',
+      mode: 1,
+      value: val[1]
     }]
 }

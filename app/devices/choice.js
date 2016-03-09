@@ -1,4 +1,4 @@
-var dx = require('hxdx').dx
+var dx = require('../bxdx/bxdx.js').dx
 var actions = require('../actions/choice.js')
 
 module.exports = function () {
@@ -11,10 +11,12 @@ module.exports = function () {
   } 
 
   return [ 
-    {'mode': 0,
-      'callback': zero
+    {id: 'choice-zero',
+      mode: 0,
+      onclick: zero
     },
-    {'mode': 0,
-      'callback': one
+    {id: 'choice-one',
+      mode: 0,
+      onclick: one
     }]
 }
