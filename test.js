@@ -34,3 +34,5 @@ for (var key in y) {
 }
 
 console.log(dict)
+
+console.log(('CHOICE_ZERO' in y))

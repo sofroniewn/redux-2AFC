@@ -17,37 +17,43 @@ process.__defineGetter__('stdin', function() {
 var board = new five.Board()
 var _ = require('lodash')
 
-// board.on('ready', function () {
-//   console.log('Board ready')
-// })
+var EventEmitter = require('events').EventEmitter
+var emitter = new EventEmitter();
+board.on('ready', function () {
+  emitter.emit('ready')
+})
 
 var pins = {}
 
 function init(output, pinmap) {
   _(output).forEach(function(item, key) {
-    pins[key] = new five.Pin({pin: pinmap[key], mode: item.mode})
-    if(item.mode === 0) {
-      pins[key].on('high', function() {
-        item.onclick()
-      })
-    } else if (item.mode === 1) {
-      pins[key].write(item.value)
+    if (key in pinmap) {
+      pins[key] = new five.Pin({pin: pinmap[key], mode: item.mode})
+      if(item.mode === 0) {
+        pins[key].on('high', function() {
+          item.onclick()
+        })
+      } else if (item.mode === 1) {
+        pins[key].write(item.value)
+      }
     }
   })
 }
 
 function update(output, pinmap) {
   _(output).forEach(function(item, key) {
-    if(item.mode === 1) {
-      pins[key].write(item.value)
+    if (key in pinmap) {
+      if(item.mode === 1) {
+        pins[key].write(item.value)
+      }
     }
   })
 }
 
 module.exports = function (pinmap) {
   return {
-    board: board,
     init: function (output) {init(output, pinmap)},
     update: function (output) {update(output, pinmap)},
+    emitter: emitter
   }
 }

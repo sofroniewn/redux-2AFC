@@ -30,13 +30,12 @@ function convert (output) {
   var array = _.map(output, convertItem)
   return hx`
   <div>
-    MOCK BOARD
+    MOCK DEVICE:
     ${array}
   </div>`
 }
 
 var root = null
-var board = null
 var pinmap = null
 
 
@@ -56,10 +55,9 @@ function update (state) {
   return loop.update(state)
 }
 
-module.exports = function (pinmap) {
+module.exports = function () {
   return {
-    board: board,
     init: init,
-    update: update
+    update: update,
   }
 }

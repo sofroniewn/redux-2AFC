@@ -15,17 +15,6 @@ module.exports = {
     device.init(output(store.getState()))
     store.subscribe(update)
 
-    // device.board.on('ready', function () {
-    //   console.log('Board ready')
-    //   device.init(output(store.getState()))
-    //   store.subscribe(update)
-    // })
-
-    // device.board.open(device.err, function () {
-    //   console.log('Board ready')
-    //   device.init(output(store.getState()))
-    //   store.subscribe(update)
-    // })
   }
 }
 
