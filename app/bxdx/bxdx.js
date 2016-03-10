@@ -5,14 +5,14 @@ module.exports = {
     dx(action)
   },
 
-  render: function (output, store, device) {
+  render: function (devices, store, board) {
     dx = store.dispatch
     
     function update() {
-      device.update(output(store.getState()))
+      board.update(devices(store.getState()))
     }
 
-    device.init(output(store.getState()))
+    board.init(devices(store.getState()))
     store.subscribe(update)
 
   }
