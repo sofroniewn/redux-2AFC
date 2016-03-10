@@ -9,9 +9,7 @@ var _ = require('lodash')
 function init(output, pinmap) {
   _(output).forEach(function (item, key){
     if (item.mode === 0) {
-      oldValues[key] = null;
-      console.log(item)
-      console.log(oldValues[key])
+      oldValues[key] = null
       var timer = new NanoTimer()
       timer.setInterval(function () {
         board.read(pinmap[key], err, function(value) {

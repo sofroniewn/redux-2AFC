@@ -5,24 +5,27 @@ module.exports = {
     dx(action)
   },
 
-  render: function (outputs, store, device) {
+  render: function (output, store, device) {
     dx = store.dispatch
     
     function update() {
-      device.update(outputs(store.getState()))
+      device.update(output(store.getState()))
     }
-    
-    // bx.board.on('ready', function () {
+
+    device.init(output(store.getState()))
+    store.subscribe(update)
+
+    // device.board.on('ready', function () {
     //   console.log('Board ready')
-    //   bx.init(outputs(store.getState()))
+    //   device.init(output(store.getState()))
     //   store.subscribe(update)
     // })
 
-    device.board.open(device.err, function () {
-      console.log('Board ready')
-      device.init(outputs(store.getState()))
-      store.subscribe(update)
-    })
+    // device.board.open(device.err, function () {
+    //   console.log('Board ready')
+    //   device.init(output(store.getState()))
+    //   store.subscribe(update)
+    // })
   }
 }
 

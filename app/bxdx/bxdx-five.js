@@ -21,34 +21,33 @@ var _ = require('lodash')
 //   console.log('Board ready')
 // })
 
-var pins
+var pins = {}
 
-function init(outputList, pinmap) {
-  pins = _.map(pinmap, function (address, key){
-    return new five.Pin({pin: address, mode: outputList[key]['mode']})
-  })
-
-  _(outputList).forEach(function(output, key) {
-    if(output['mode'] === 0) {
+function init(output, pinmap) {
+  _(output).forEach(function(item, key) {
+    pins[key] = new five.Pin({pin: pinmap[key], mode: item.mode})
+    if(item.mode === 0) {
       pins[key].on('high', function() {
-        output['onclick']()
+        item.onclick()
       })
-    } else if (output['mode'] === 1) {
-        board.digitalWrite(pinmap[key], output['value'])
+    } else if (item.mode === 1) {
+      pins[key].write(item.value)
     }
   })
 }
 
-function update(outputList, pinmap) {
-  _(outputList).forEach(function(output, key) {
-    if(output['mode'] === 1) {
-      pins[key].write(output['value'])
+function update(output, pinmap) {
+  _(output).forEach(function(item, key) {
+    if(item.mode === 1) {
+      pins[key].write(item.value)
     }
   })
 }
 
-module.exports = {
-  board: board,
-  update: update,
-  init: init
+module.exports = function (pinmap) {
+  return {
+    board: board,
+    init: function (output) {init(output, pinmap)},
+    update: function (output) {update(output, pinmap)},
+  }
 }

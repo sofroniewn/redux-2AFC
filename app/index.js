@@ -11,62 +11,82 @@ var outputs = require('./outputs')
 var store = createStore(reducer, applyMiddleware(thunk, logger))
 hxdx.render(components, store)
 
-var configuration = {'LABJACK': {
-  'CHOICE_ZERO': 'FIO0',
-  'TARGET_ZERO': 'FIO1',
-  'CHOICE_ONE': 'FIO2',
-  'TARGET_ONE': 'FIO3'
-  }
-}
 
-// var configuration = {'FIRMATA': {
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+// var configuration = {'LABJACK': {
 //   'CHOICE_ZERO': 'FIO0',
 //   'TARGET_ZERO': 'FIO1',
 //   'CHOICE_ONE': 'FIO2',
 //   'TARGET_ONE': 'FIO3'
 //   }
 // }
+// var createDevice = require('./bxdx/bxdx-labjack.js')
+// var device = createDevice(configuration.LABJACK) 
+// bxdx.render(outputs, store, device)
 
 
-var createDevice = require('./bxdx/bxdx-labjack.js')
-var device = createDevice(configuration.LABJACK) 
-bxdx.render(outputs, store, device)
-
-
-// var configuration = {'FIVE': {
-//   '2': 'CHOICE-ZERO',
-//   '4': 'TARGET-ZERO',
-//   '3': 'CHOICE-ONE',
-//   '5': 'TARGET-ONE'
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+// var configuration = {'FIRMATA': {
+//   'CHOICE_ZERO': 2,
+//   'TARGET_ZERO': 4,
+//   'CHOICE_ONE': 3,
+//   'TARGET_ONE': 5
 //   }
 // }
+// var createDevice = require('./bxdx/bxdx-firmata.js')
+// var device = createDevice(configuration.FIRMATA) 
+// bxdx.render(outputs, store, device)
 
-var configuration = {'LABJACK': {
-  'FIO0': 'CHOICE-ZERO',
-  'FIO2': 'CHOICE-ONE',
-  },
-  'FIVE': {
-  '4': 'TARGET-ZERO',
-  '5': 'TARGET-ONE'
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+// var configuration = {'FIVE': {
+//   'CHOICE_ZERO': 2,
+//   'TARGET_ZERO': 4,
+//   'CHOICE_ONE': 3,
+//   'TARGET_ONE': 5
+//   }
+// }
+// var createDevice = require('./bxdx/bxdx-five.js')
+// var device = createDevice(configuration.FIVE) 
+// bxdx.render(outputs, store, device)
+
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+// var configuration = {'LABJACK': {
+//   'CHOICE_ZERO': 'FIO0',
+//   'CHOICE_ONE': 'FIO2',
+//   },
+//   'FIRMATA': {
+//   'TARGET_ZERO': 4,
+//   'TARGET_ONE': 5
+//   }
+// }
+// var createDevice = require('./bxdx/bxdx-labjack.js')
+// var device = createDevice(configuration.LABJACK) 
+// bxdx.render(outputs, store, device)
+// var createDevice = require('./bxdx/bxdx-firmata.js')
+// var device = createDevice(configuration.FIRMATA) 
+// bxdx.render(outputs, store, device)
+
+
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+var configuration = {'MOCK': {
+  'CHOICE_ZERO': 2,
+  'TARGET_ZERO': 4,
+  'CHOICE_ONE': 3,
+  'TARGET_ONE': 5
   }
 }
 
-// var configuration = {'MOCK': {
-//   '2': 'CHOICE-ZERO',
-//   '4': 'TARGET-ZERO',
-//   '3': 'CHOICE-ONE',
-//   '5': 'TARGET-ONE'
-//   }
-// }
+var createDevice = require('./bxdx/bxdx-mock.js')
+var device = createDevice(configuration.MOCK) 
+bxdx.render(outputs, store, device)
 
-// // for mock
-// var bx = require('./bxdx/bxdx-mock.js')
-// bxdx.render(devices, store, bx)
-// function mock (state) {
-//   return bx(devices(store.getState()))
-// }
-// hxdx.render(mock, store)
 
-// var bxdx = require('./bxdx/bxdx.js')
-// //var bx = require('./bxdx/bxdx-five.js')
-// var bx = require('./bxdx/bxdx-labjack.js')
+

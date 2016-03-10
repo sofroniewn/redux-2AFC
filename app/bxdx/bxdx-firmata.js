@@ -6,26 +6,26 @@ var _ = require('lodash')
 //   console.log('Board ready')
 // })
 
-function init(outputList, pinmap) {
-  _(outputList).forEach(function(output, key) {
-    if(output['mode'] === 0) {
+function init(output, pinmap) {
+  _(output).forEach(function(item, key) {
+    if (item.mode === 0) {
       board.pinMode(pinmap[key], board.MODES.INPUT)
       board.digitalRead(pinmap[key], function(value) {
       if (value === 1) {
-          output['onclick']()
+          item.onclick()
         }
       })
-    } else if (output['mode'] === 1) {
+    } else if (item.mode === 1) {
         board.pinMode(pinmap[key], board.MODES.OUTPUT)
-        board.digitalWrite(pinmap[key], output['value'])
+        board.digitalWrite(pinmap[key], item.value)
     }
   })
 }
 
-function update(outputList, pinmap) {
-  _(outputList).forEach(function(output, key) {
-    if(output['mode'] === 1) {
-      board.digitalWrite(pinmap[key], output['value'])
+function update(output, pinmap) {
+  _(output).forEach(function(item, key) {
+    if(item.mode === 1) {
+      board.digitalWrite(pinmap[key], item.value)
     }
   })
 }
@@ -34,8 +34,10 @@ function update(outputList, pinmap) {
 
 // }
 
-module.exports = {
-  board: board,
-  update: update,
-  init: init
+module.exports = function (pinmap) {
+  return {
+    board: board,
+    init: function (output) {init(output, pinmap)},
+    update: function (output) {update(output, pinmap)},
+  }
 }

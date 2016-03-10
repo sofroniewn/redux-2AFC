@@ -1,25 +1,24 @@
+var vdom = require('virtual-dom')
+var hyperx = require('hyperx')
+var hx = hyperx(vdom.h)
+var main = require('main-loop')
+
 var _ = require('lodash')
-var hx = require('hxdx').hx
-// var dx = require('./bxdx.js').dx
 
-// board.on('ready', function () {
-//   console.log('Board ready')
-// })
-
-function render (output) {
-  switch (output['mode']) {
+function convertItem (item, key) {
+  switch (item.mode) {
     case 0:
       return hx`
         <div>
         <p>
-          <button onclick=${output.onclick} >${output.id}</button>
+          <button onclick=${item.onclick} >${key}</button>
         </p>
       </div>`
     case 1:
       return hx`
         <div>
         <p>
-          <span>${output.id} : ${output.value}</span>
+          <span>${key} : ${item.value}</span>
         </p>
       </div>`
     default:
@@ -27,11 +26,40 @@ function render (output) {
   }
 }
 
-module.exports = function (outputList) {
-  var array = _.map(outputList, render)
+function convert (output) {
+  var array = _.map(output, convertItem)
   return hx`
   <div>
     MOCK BOARD
     ${array}
   </div>`
+}
+
+var root = null
+var board = null
+var pinmap = null
+
+
+var loop
+function init (output) {
+  loop = main(output, render, vdom)
+  
+  if (root) root.appendChild(loop.target)
+  else document.body.appendChild(loop.target)
+}
+
+function render (state) {
+  return convert(state)
+}
+
+function update (state) {
+  return loop.update(state)
+}
+
+module.exports = function (pinmap) {
+  return {
+    board: board,
+    init: init,
+    update: update
+  }
 }
