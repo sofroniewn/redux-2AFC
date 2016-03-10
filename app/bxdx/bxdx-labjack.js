@@ -1,49 +1,47 @@
-//var pinmap = [2, 3, 4, 5]
-var pinmap = ['FIO0', 'FIO2', 'FIO1', 'FIO3']
-
-
-var ljn = require('labjack-nodejs');
-var createDeviceObject = ljn.getDevice();
-var board = new createDeviceObject();
-
-// Add hardware
-var _ = require('lodash')
+var ljn = require('labjack-nodejs')
+var createDeviceObject = ljn.getDevice()
+var board = new createDeviceObject()
 
 var NanoTimer = require('nanotimer')
-var oldValues
+var oldValues = {}
 
-function init(outputList) {
-  oldValues = new Array(pinmap.length).fill(null);
-  _(outputList).forEach(function(output, key) {
-    if (output['mode'] === 0) {
+var _ = require('lodash')
+function init(output, pinmap) {
+  _(output).forEach(function (item, key){
+    if (item.mode === 0) {
+      oldValues[key] = null;
+      console.log(item)
+      console.log(oldValues[key])
       var timer = new NanoTimer()
       timer.setInterval(function () {
         board.read(pinmap[key], err, function(value) {
           if (value === 1 & value !== oldValues[key]) {
-            output['onclick']()
+            item.onclick()
           }
           oldValues[key] = value
         })
       }, '', '5m')
-    } else if (output['mode'] === 1) {
-      board.writeSync(pinmap[key], output['value'])
+    } else if (item.mode === 1) {
+      board.writeSync(pinmap[key], item.value)
     }
   })
 }
 
-function update(outputList) {
-  _(outputList).forEach(function(output, key) {
-    if(output['mode'] === 1) {
-      board.writeSync(pinmap[key], output['value'])
+function update(output, pinmap) {
+  _(output).forEach(function (item, key) {
+    if(item.mode === 1) {
+      board.writeSync(pinmap[key], item.value)
     }
   })
 }
 
 function err (res) {console.log('Board error: ', res)}
 
-module.exports = {
-  board: board,
-  update: update,
-  init: init,
-  err: err
+module.exports = function (pinmap) {
+  return {
+    board: board,
+    init: function (output) {init(output, pinmap)},
+    update: function (output) {update(output, pinmap)},
+    err: err
+  }
 }

@@ -10,13 +10,14 @@ module.exports = function () {
     dx(actions.one())
   } 
 
-  return [ 
-    {id: 'choice-zero',
+  return {
+    'CHOICE_ZERO': {
       mode: 0,
       onclick: zero
     },
-    {id: 'choice-one',
+    'CHOICE_ONE': {
       mode: 0,
       onclick: one
-    }]
+    }
+  }
 }

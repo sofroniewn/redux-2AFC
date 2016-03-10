@@ -10,13 +10,14 @@ module.exports = function (state) {
     }
   }
 
-  return [ 
-    {id: 'target-zero',
+  return {
+    'TARGET_ZERO': {
       mode: 1,
       value: val[0]
     },
-    {id: 'target-one',
+    'TARGET_ONE': {
       mode: 1,
       value: val[1]
-    }]
+    }
+  }
 }
