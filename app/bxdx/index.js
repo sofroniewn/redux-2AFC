@@ -6,6 +6,7 @@ module.exports = function (devices, store, board, pinmap) {
   _(output).forEach(function(item, key) {
     if (key in pinmap) {
       board.init(pinmap[key], item, key)
+      board.update(pinmap[key], item, key)
     }
   })
 

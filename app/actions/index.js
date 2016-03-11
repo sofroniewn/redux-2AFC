@@ -21,11 +21,13 @@ function timeout() {
 
 function response(value) {
   return (dispatch, getState) => {
-    clearInterval(getState().timer)    
-    var timerId = setInterval(() => {
-        dispatch(timeout())
-      }, 5000)
-    dispatch({type: CHOICE, value: value, next: next(), timer: timerId})
+    if (getState().status) {
+      clearInterval(getState().timer)    
+      var timerId = setInterval(() => {
+          dispatch(timeout())
+        }, 5000)
+      dispatch({type: CHOICE, value: value, next: next(), timer: timerId})
+    }
   }
 }
 

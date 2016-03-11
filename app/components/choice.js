@@ -4,15 +4,17 @@ var actions = require('../actions')
 
 module.exports = function (state) {
   function zero () {
-    if (state.status) {
-      dx(actions.response(0))
-    }
+    dx(actions.response(0))
+    // if (state.status) {
+    //   dx(actions.response(0))
+    // }
   }
 
   function one () {
-    if (state.status) {
-      dx(actions.response(1))
-    }
+    dx(actions.response(1))
+    // if (state.status) {
+    //   dx(actions.response(1))
+    // }
   }
 
   var style = {

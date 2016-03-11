@@ -46,18 +46,18 @@ hxdx.render(components, store)
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
-// var configuration = {'FIVE': {
-//   'CHOICE_ZERO': 2,
-//   'TARGET_ZERO': 4,
-//   'CHOICE_ONE': 3,
-//   'TARGET_ONE': 5
-//   }
-// }
-// var board = require('./bxdx/bx-five.js')
-// board.emitter.on('ready', function () {
-//   console.log('FIVE ready')
-//   bxdx(devices, store, board, configuration.FIVE)
-// })
+var configuration = {'FIVE': {
+  'CHOICE_ZERO': 2,
+  'TARGET_ZERO': 4,
+  'CHOICE_ONE': 3,
+  'TARGET_ONE': 5
+  }
+}
+var board = require('./bxdx/bx-five.js')
+board.emitter.on('ready', function () {
+  console.log('FIVE ready')
+  bxdx(devices, store, board, configuration.FIVE)
+})
 
 
 ///////////////////////////////////////////////////////////////////

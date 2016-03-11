@@ -1,16 +1,18 @@
 var actions = require('../actions')
 
-module.exports = function (enabled, dispatch) {
+module.exports = function (state, dispatch) {
   function zero () {
-    if (enabled) {
-      dispatch(actions.response(0))
-    }
+    dispatch(actions.response(0))
+    // if (enabled) {
+    //   dispatch(actions.response(0))
+    // }
   }
 
   function one () {
-    if (enabled) {
-      dispatch(actions.response(1))
-    }
+    dispatch(actions.response(1))
+    // if (enabled) {
+    //   dispatch(actions.response(1))
+    // }
   }
 
   return {
