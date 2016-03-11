@@ -1,3 +1,5 @@
+NanoTimer = require('nanotimer')
+
 /*
  * action types
  */
@@ -21,10 +23,11 @@ function timeout() {
 
 function response(value) {
   return (dispatch, getState) => {
-    clearInterval(getState().timer)    
-    var timerId = setInterval(() => {
+    getState().timer.clearInterval()    
+    var timerId = new NanoTimer()
+    timerId.setInterval(() => {
         dispatch(timeout())
-      }, 5000)
+      }, '', '5s')
     dispatch({type: CHOICE, value: value, next: next(), timer: timerId})
   }
 }
@@ -37,14 +40,25 @@ function pause() {
   return (dispatch, getState) => {
     var timerId = getState().timer
     if (timerId === null) {
-      var timerId = setInterval(() => {
+      var timerId = new NanoTimer()
+      timerId.setInterval(() => {
         dispatch(timeout())
-      }, 5000)
+      }, '', '5s')
     } else {
-      clearInterval(getState().timer)    
+      timerId.clearInterval()    
       timerId = null
     }
-    dispatch({type: PAUSE, timer: timerId})
+    var globalTimerId = getState().globalTimer
+    if (globalTimerId === null) {
+      var globalTimerId = new NanoTimer()
+      globalTimerId.setTimeout(() => {
+        dispatch(pause())
+      }, '', '8s')
+    } else {
+      globalTimerId.clearInterval()
+      globalTimerId = null
+    }
+    dispatch({type: PAUSE, timer: timerId, globalTimer: globalTimerId})
   }
 }
 

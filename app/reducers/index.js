@@ -49,5 +49,17 @@ function timer (state, action) {
   }
 }
 
+function globalTimer (state, action) {
+  if (typeof state === 'undefined') {
+    return null
+  }
+  switch (action.type) {
+    case actions.PAUSE:
+      return action.globalTimer
+    default:
+      return state
+  }
+}
+
 module.exports = combineReducers({choice,
-  status, timer})
+  status, timer, globalTimer})
