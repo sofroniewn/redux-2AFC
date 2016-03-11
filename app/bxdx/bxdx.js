@@ -1,3 +1,5 @@
+var _ = require('lodash')
+
 var dx
 
 module.exports = {
@@ -5,29 +7,25 @@ module.exports = {
     dx(action)
   },
 
-  render: function (devices, store, board) {
+  render: function (devices, store, board, pinmap) {
     dx = store.dispatch
-    
+
+    var output = devices(store.getState())
+    _(output).forEach(function(item, key) {
+      if (key in pinmap) {
+        board.init(pinmap[key], item)
+      }
+    })
+
     function update() {
-      board.update(devices(store.getState()))
+      var output = devices(store.getState())
+      _(output).forEach(function(item, key) {
+        if (key in pinmap) {
+          board.update(pinmap[key], item)
+        }
+      })
     }
 
-    board.init(devices(store.getState()))
     store.subscribe(update)
-
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

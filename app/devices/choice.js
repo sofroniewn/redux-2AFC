@@ -12,11 +12,11 @@ module.exports = function () {
 
   return {
     'CHOICE_ZERO': {
-      mode: 0,
+      mode: 'DI',
       onclick: zero
     },
     'CHOICE_ONE': {
-      mode: 0,
+      mode: 'DI',
       onclick: one
     }
   }

@@ -12,11 +12,11 @@ module.exports = function (state) {
 
   return {
     'TARGET_ZERO': {
-      mode: 1,
+      mode: 'DO',
       value: val[0]
     },
     'TARGET_ONE': {
-      mode: 1,
+      mode: 'DO',
       value: val[1]
     }
   }

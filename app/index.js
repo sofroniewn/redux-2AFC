@@ -14,19 +14,18 @@ hxdx.render(components, store)
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
-// var configuration = {'LABJACK': {
-//   'CHOICE_ZERO': 'FIO0',
-//   'TARGET_ZERO': 'FIO1',
-//   'CHOICE_ONE': 'FIO2',
-//   'TARGET_ONE': 'FIO3'
-//   }
-// }
-// var createBoard = require('./bxdx/bxdx-labjack.js')
-// var board = createBoard(configuration.LABJACK) 
-// device.emitter.on('ready', function () {
-//   console.log('LABJACK ready')
-//   bxdx.render(devices, store, board)
-// })
+var configuration = {'LABJACK': {
+  'CHOICE_ZERO': 'FIO0',
+  'TARGET_ZERO': 'FIO1',
+  'CHOICE_ONE': 'FIO2',
+  'TARGET_ONE': 'FIO3'
+  }
+}
+var board = require('./bxdx/bx-labjack.js')
+board.emitter.on('ready', function () {
+  console.log('LABJACK ready')
+  bxdx.render(devices, store, board, configuration.LABJACK)
+})
 
 
 ///////////////////////////////////////////////////////////////////
@@ -38,11 +37,10 @@ hxdx.render(components, store)
 //   'TARGET_ONE': 5
 //   }
 // }
-// var createBoard = require('./bxdx/bxdx-firmata.js')
-// var board = createBoard(configuration.FIRMATA) 
+// var board = require('./bxdx/bx-firmata.js')
 // board.emitter.on('ready', function () {
 //   console.log('FIRMATA ready')
-//   bxdx.render(devices, store, board)
+//   bxdx.render(devices, store, board, configuration.FIRMATA)
 // })
 
 
@@ -55,12 +53,12 @@ hxdx.render(components, store)
 //   'TARGET_ONE': 5
 //   }
 // }
-// var createBoard = require('./bxdx/bxdx-five.js')
-// var board = createBoard(configuration.FIVE) 
+// var board = require('./bxdx/bx-five.js')
 // board.emitter.on('ready', function () {
 //   console.log('FIVE ready')
-//   bxdx.render(devices, store, board)
+//   bxdx.render(devices, store, board, configuration.FIVE)
 // })
+
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
@@ -105,7 +103,7 @@ hxdx.render(components, store)
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
-var boardM = require('./bxdx/bxdx-mock.js')()
-bxdx.render(devices, store, boardM)
+// var boardM = require('./bxdx/bxdx-mock.js')()
+// bxdx.render(devices, store, boardM)
 
 
