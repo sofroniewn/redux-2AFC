@@ -2,11 +2,11 @@ var actions = require('../actions/choice.js')
 
 module.exports = function (state, dispatch) {
   function zero () {
-    dispatch(actions.zero())
+    dispatch(actions.response(0))
   }
 
   function one () {
-    dispatch(actions.one())
+    dispatch(actions.response(1))
   } 
 
   return {

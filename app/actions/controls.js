@@ -14,11 +14,11 @@ const TIMER_STOPPED = 'TIMER_STOPPED'
  */
 
 function timeout() {
-  return {type: TIMEOUT, value: Math.round(Math.random())}
+  return {type: TIMEOUT, next: Math.round(Math.random())}
 }
 
 function reset() {
-  return {type: RESET, value: Math.round(Math.random())}
+  return {type: RESET, next: Math.round(Math.random())}
 }
 
 function pause() {

@@ -7,28 +7,19 @@ function choice (state, action) {
     return {value: 0, correct: 0, wrong: 0, missed: 0}
   }
   switch (action.type) {
-    case actionsCh.ZERO:
-      switch (state.value) {
-        case 0:
-          return {value: action.value, correct: state.correct + 1, wrong: state.wrong, missed: state.missed}
-        case 1:
-          return {value: action.value, correct: state.correct, wrong: state.wrong + 1, missed: state.missed}
+    case actionsCh.CHOICE:
+      switch (state.value === action.value) {
+        case true:
+          return {value: action.next, correct: state.correct + 1, wrong: state.wrong, missed: state.missed}
+        case false:
+          return {value: action.next, correct: state.correct, wrong: state.wrong + 1, missed: state.missed}
         default:
            return state
       }
-    case actionsCh.ONE:
-       switch (state.value) {
-         case 0:
-          return {value: action.value, correct: state.correct, wrong: state.wrong + 1, missed: state.missed}
-         case 1:
-          return {value: action.value, correct: state.correct + 1, wrong: state.wrong, missed: state.missed}
-        default:
-          return state
-      }
     case actionsCh.TIMEOUT:
-      return {value: action.value, correct: state.correct, wrong: state.wrong, missed: state.missed + 1}        
+      return {value: action.next, correct: state.correct, wrong: state.wrong, missed: state.missed + 1}        
     case actionsCo.RESET:
-      return {value: action.value, correct: 0, wrong: 0, missed: 0}
+      return {value: action.next, correct: 0, wrong: 0, missed: 0}
     default:
       return state
   }

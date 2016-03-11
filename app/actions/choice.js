@@ -2,8 +2,7 @@
  * action types
  */
 
-const ZERO = 'ZERO'
-const ONE = 'ONE'
+const CHOICE = 'CHOICE'
 const TIMEOUT = 'TIMEOUT'
 const TIMER_STARTED = 'TIMER_STARTED'
 const TIMER_STOPPED = 'TIMER_STOPPED'
@@ -13,13 +12,13 @@ const TIMER_STOPPED = 'TIMER_STOPPED'
  */
 
 function timeout() {
-  return {type: TIMEOUT, value: Math.round(Math.random())}
+  return {type: TIMEOUT, next: Math.round(Math.random())}
 }
 
-function zero() {
+function response(value) {
   return (dispatch, getState) => {
     if (getState().status === true) {
-      dispatch({type: ZERO, value: Math.round(Math.random())})
+      dispatch({type: CHOICE, value: value, next: Math.round(Math.random())})
       clearInterval(getState().timer)    
       var timerId = setInterval(() => {
           dispatch(timeout())
@@ -29,29 +28,27 @@ function zero() {
   }
 }
 
-function one() {
-  return (dispatch, getState) => {
-    if (getState().status === true) {
-      dispatch({type: ONE, value: Math.round(Math.random())})
-      clearInterval(getState().timer)    
-      var timerId = setInterval(() => {
-          dispatch(timeout())
-        }, 5000)
-      dispatch({type: TIMER_STARTED, payload: timerId}) // a store supposed to save `timerId`
-    }
-  }
-}
+// function one() {
+//   return (dispatch, getState) => {
+//     if (getState().status === true) {
+//       dispatch({type: ONE, value: Math.round(Math.random())})
+//       clearInterval(getState().timer)    
+//       var timerId = setInterval(() => {
+//           dispatch(timeout())
+//         }, 5000)
+//       dispatch({type: TIMER_STARTED, payload: timerId}) // a store supposed to save `timerId`
+//     }
+//   }
+// }
 
 /*
  * exports
  */
 
 module.exports = {
-  ZERO: ZERO,
-  ONE: ONE,
+  CHOICE: CHOICE,
   TIMEOUT: TIMEOUT,
   TIMER_STARTED: TIMER_STARTED,
   TIMER_STOPPED: TIMER_STOPPED,
-  zero: zero,
-  one: one,
+  response: response,
   }
