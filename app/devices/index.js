@@ -3,7 +3,7 @@ var target = require('./target.js')
 
 module.exports = function (state, dispatch) {
   return Object.assign(
-    choice(null, dispatch),
+    choice(state.status, dispatch),
     target(state, null)
   )
 }

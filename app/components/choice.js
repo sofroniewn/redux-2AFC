@@ -4,11 +4,15 @@ var actions = require('../actions/choice.js')
 
 module.exports = function (state) {
   function zero () {
-    dx(actions.response(0))
+    if (state.status) {
+      dx(actions.response(0))
+    }
   }
 
   function one () {
-    dx(actions.response(1))
+    if (state.status) {
+      dx(actions.response(1))
+    }
   }
 
   var style = {

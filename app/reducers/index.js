@@ -19,7 +19,7 @@ function choice (state, action) {
     case actionsCh.TIMEOUT:
       return {value: action.next, correct: state.correct, wrong: state.wrong, missed: state.missed + 1}        
     case actionsCo.RESET:
-      return {value: action.next, correct: 0, wrong: 0, missed: 0}
+      return {value: state.value, correct: 0, wrong: 0, missed: 0}
     default:
       return state
   }

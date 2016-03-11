@@ -1,13 +1,17 @@
 var actions = require('../actions/choice.js')
 
-module.exports = function (state, dispatch) {
+module.exports = function (enabled, dispatch) {
   function zero () {
-    dispatch(actions.response(0))
+    if (enabled) {
+      dispatch(actions.response(0))
+    }
   }
 
   function one () {
-    dispatch(actions.response(1))
-  } 
+    if (enabled) {
+      dispatch(actions.response(1))
+    }
+  }
 
   return {
     'CHOICE_ZERO': {

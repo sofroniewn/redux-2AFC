@@ -9,19 +9,21 @@ const TIMEOUT = 'TIMEOUT'
  * action creators
  */
 
+function next () {
+  return Math.round(Math.random())
+}
+
 function timeout() {
-  return {type: TIMEOUT, next: Math.round(Math.random())}
+  return {type: TIMEOUT, next: next()}
 }
 
 function response(value) {
   return (dispatch, getState) => {
-    if (getState().status === true) {
-      clearInterval(getState().timer)    
-      var timerId = setInterval(() => {
-          dispatch(timeout())
-        }, 5000)
-      dispatch({type: CHOICE, value: value, next: Math.round(Math.random()), timer: timerId})
-    }
+    clearInterval(getState().timer)    
+    var timerId = setInterval(() => {
+        dispatch(timeout())
+      }, 5000)
+    dispatch({type: CHOICE, value: value, next: next(), timer: timerId})
   }
 }
 

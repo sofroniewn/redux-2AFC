@@ -15,7 +15,7 @@ function timeout() {
 }
 
 function reset() {
-  return {type: RESET, next: Math.round(Math.random())}
+  return {type: RESET}
 }
 
 function pause() {
