@@ -1,4 +1,4 @@
-module.exports = function (state) {
+module.exports = function (state, dispatch) {
   var val = [0, 0]
   
   if (state.status === true) {
@@ -12,11 +12,11 @@ module.exports = function (state) {
 
   return {
     'TARGET_ZERO': {
-      mode: 'DO',
+      type: 'DO',
       value: val[0]
     },
     'TARGET_ONE': {
-      mode: 'DO',
+      type: 'DO',
       value: val[1]
     }
   }

@@ -1,5 +1,5 @@
 var hxdx = require('hxdx')
-var bxdx = require('./bxdx/bxdx.js')
+var bxdx = require('./bxdx')
 var createStore = require('redux').createStore
 var applyMiddleware = require('redux').applyMiddleware
 var thunk = require('redux-thunk')
@@ -14,18 +14,18 @@ hxdx.render(components, store)
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
-var configuration = {'LABJACK': {
-  'CHOICE_ZERO': 'FIO0',
-  'TARGET_ZERO': 'FIO1',
-  'CHOICE_ONE': 'FIO2',
-  'TARGET_ONE': 'FIO3'
-  }
-}
-var board = require('./bxdx/bx-labjack.js')
-board.emitter.on('ready', function () {
-  console.log('LABJACK ready')
-  bxdx.render(devices, store, board, configuration.LABJACK)
-})
+// var configuration = {'LABJACK': {
+//   'CHOICE_ZERO': 'FIO0',
+//   'TARGET_ZERO': 'FIO1',
+//   'CHOICE_ONE': 'FIO2',
+//   'TARGET_ONE': 'FIO3'
+//   }
+// }
+// var board = require('./bxdx/bx-labjack.js')
+// board.emitter.on('ready', function () {
+//   console.log('LABJACK ready')
+//   bxdx(devices, store, board, configuration.LABJACK)
+// })
 
 
 ///////////////////////////////////////////////////////////////////
@@ -37,42 +37,32 @@ board.emitter.on('ready', function () {
 //   'TARGET_ONE': 5
 //   }
 // }
-// var board = require('./bxdx/bx-firmata.js')
+// path = '/dev/cu.usbmodem1411'
+// var board = require('./bxdx/bx-firmata.js')(path)
 // board.emitter.on('ready', function () {
 //   console.log('FIRMATA ready')
-//   bxdx.render(devices, store, board, configuration.FIRMATA)
+//   bxdx(devices, store, board, configuration.FIRMATA)
 // })
 
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
-// var configuration = {'FIVE': {
-//   'CHOICE_ZERO': 2,
-//   'TARGET_ZERO': 4,
-//   'CHOICE_ONE': 3,
-//   'TARGET_ONE': 5
-//   }
-// }
-// var board = require('./bxdx/bx-five.js')
-// board.emitter.on('ready', function () {
-//   console.log('FIVE ready')
-//   bxdx.render(devices, store, board, configuration.FIVE)
-// })
+var configuration = {'FIVE': {
+  'CHOICE_ZERO': 2,
+  'TARGET_ZERO': 4,
+  'CHOICE_ONE': 3,
+  'TARGET_ONE': 5
+  }
+}
+var board = require('./bxdx/bx-five.js')
+board.emitter.on('ready', function () {
+  console.log('FIVE ready')
+  bxdx(devices, store, board, configuration.FIVE)
+})
 
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
-// var configuration = {'LABJACK': {
-//     'CHOICE_ZERO': 'FIO0',
-//     'CHOICE_ONE': 'FIO2',
-//   },
-//   'FIRMATA': {
-//     'TARGET_ZERO': 4,
-//     'TARGET_ONE': 5
-//   }
-// }
-////////////////////////////////////
-////////////////////////////////////
 // var configuration = {'LABJACK': {
 //     'CHOICE_ZERO': 'FIO0',
 //     'TARGET_ZERO': 'FIO1',
@@ -86,24 +76,22 @@ board.emitter.on('ready', function () {
 //     'TARGET_ONE': 5
 //   }
 // }
-// var createBoardL = require('./bxdx/bxdx-labjack.js')
-// var boardL = createBoardL(configuration.LABJACK) 
+// var boardL = require('./bxdx/bx-labjack.js')
 // boardL.emitter.on('ready', function () {
 //   console.log('LABJACK ready')
-//   bxdx.render(devices, store, boardL)
+//   bxdx(devices, store, boardL, configuration.LABJACK)
 // })
-// var createBoard = require('./bxdx/bxdx-firmata.js')
-// var board = createBoard(configuration.FIRMATA) 
+// path = '/dev/cu.usbmodem1411'
+// var board = require('./bxdx/bx-firmata.js')(path)
 // board.emitter.on('ready', function () {
 //   console.log('FIRMATA ready')
-//   bxdx.render(devices, store, board)
+//   bxdx(devices, store, board, configuration.FIRMATA)
 // })
 
 
-
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
-// var boardM = require('./bxdx/bxdx-mock.js')()
-// bxdx.render(devices, store, boardM)
+var mock = require('./bxdx/bxdx-mock.js')
+mock(devices, store)
 
 

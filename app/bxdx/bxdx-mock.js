@@ -2,23 +2,22 @@ var vdom = require('virtual-dom')
 var hyperx = require('hyperx')
 var hx = hyperx(vdom.h)
 var main = require('main-loop')
-
 var _ = require('lodash')
 
-function convertItem (item, key) {
-  switch (item.mode) {
-    case 0:
-      return hx`
-        <div>
-        <p>
-          <button onclick=${item.onclick} >${key}</button>
-        </p>
-      </div>`
-    case 1:
+function mock (item, key) {
+  switch (item.type) {
+    case 'DO':
       return hx`
         <div>
         <p>
           <span>${key} : ${item.value}</span>
+        </p>
+      </div>`
+    case 'DI':
+      return hx`
+        <div>
+        <p>
+          <button onclick=${item.onclick} >${key}</button>
         </p>
       </div>`
     default:
@@ -27,7 +26,7 @@ function convertItem (item, key) {
 }
 
 function convert (output) {
-  var array = _.map(output, convertItem)
+  var array = _.map(output, mock)
   return hx`
   <div>
     MOCK DEVICE:
@@ -35,29 +34,19 @@ function convert (output) {
   </div>`
 }
 
-var root = null
-var pinmap = null
+module.exports = function (devices, store, root) {
+  var loop = main(store.getState(), render, vdom)
 
-
-var loop
-function init (output) {
-  loop = main(output, render, vdom)
-  
   if (root) root.appendChild(loop.target)
   else document.body.appendChild(loop.target)
-}
 
-function render (state) {
-  return convert(state)
-}
-
-function update (state) {
-  return loop.update(state)
-}
-
-module.exports = function () {
-  return {
-    init: init,
-    update: update,
+  function render (state) {
+    return convert(devices(state, store.dispatch))
   }
+
+  function update () {
+    loop.update(store.getState())
+  }
+
+  store.subscribe(update)
 }

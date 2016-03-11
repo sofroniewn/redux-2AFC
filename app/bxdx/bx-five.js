@@ -14,7 +14,7 @@ process.__defineGetter__('stdin', function() {
   return process.__stdin
 })
 
-var board = new five.Board()
+var board = new five.Board({repl: false, debug: false})
 
 var EventEmitter = require('events').EventEmitter
 var emitter = new EventEmitter();
@@ -25,7 +25,7 @@ board.on('ready', function () {
 var pins = {}
 
 function init(address, item) {
-  switch (item.mode) {
+  switch (item.type) {
     case 'DO':
       pins[address] = new five.Pin({pin: address, mode: 1})
       pins[address].write(item.value)
@@ -42,7 +42,7 @@ function init(address, item) {
 }
 
 function update(address, item) {
-  switch (item.mode) {
+  switch (item.type) {
     case 'DO':
       pins[address].write(item.value)
       break

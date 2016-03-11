@@ -1,22 +1,21 @@
-var dx = require('../bxdx/bxdx.js').dx
 var actions = require('../actions/choice.js')
 
-module.exports = function () {
+module.exports = function (state, dispatch) {
   function zero () {
-    dx(actions.zero())
+    dispatch(actions.zero())
   }
 
   function one () {
-    dx(actions.one())
+    dispatch(actions.one())
   } 
 
   return {
     'CHOICE_ZERO': {
-      mode: 'DI',
+      type: 'DI',
       onclick: zero
     },
     'CHOICE_ONE': {
-      mode: 'DI',
+      type: 'DI',
       onclick: one
     }
   }

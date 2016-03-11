@@ -15,7 +15,7 @@ var previous = {}
 var timer = {}
 
 function init(address, item) {
-  switch (item.mode) {
+  switch (item.type) {
     case 'DO':
       board.writeSync(address, item.value)
       break
@@ -37,7 +37,7 @@ function init(address, item) {
 }
 
 function update(address, item) {
-  switch (item.mode) {
+  switch (item.type) {
     case 'DO':
       board.writeSync(address, item.value)
       break
