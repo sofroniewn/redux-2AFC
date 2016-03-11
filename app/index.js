@@ -37,8 +37,7 @@ hxdx.render(components, store)
 //   'TARGET_ONE': 5
 //   }
 // }
-// path = '/dev/cu.usbmodem1411'
-// var board = require('./bxdx/bx-firmata.js')(path)
+// var board = require('./bxdx/bx-firmata.js')('/dev/cu.usbmodem1411')
 // board.emitter.on('ready', function () {
 //   console.log('FIRMATA ready')
 //   bxdx(devices, store, board, configuration.FIRMATA)
@@ -47,18 +46,18 @@ hxdx.render(components, store)
 
 ///////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////
-var configuration = {'FIVE': {
-  'CHOICE_ZERO': 2,
-  'TARGET_ZERO': 4,
-  'CHOICE_ONE': 3,
-  'TARGET_ONE': 5
-  }
-}
-var board = require('./bxdx/bx-five.js')
-board.emitter.on('ready', function () {
-  console.log('FIVE ready')
-  bxdx(devices, store, board, configuration.FIVE)
-})
+// var configuration = {'FIVE': {
+//   'CHOICE_ZERO': 2,
+//   'TARGET_ZERO': 4,
+//   'CHOICE_ONE': 3,
+//   'TARGET_ONE': 5
+//   }
+// }
+// var board = require('./bxdx/bx-five.js')
+// board.emitter.on('ready', function () {
+//   console.log('FIVE ready')
+//   bxdx(devices, store, board, configuration.FIVE)
+// })
 
 
 ///////////////////////////////////////////////////////////////////
@@ -81,8 +80,7 @@ board.emitter.on('ready', function () {
 //   console.log('LABJACK ready')
 //   bxdx(devices, store, boardL, configuration.LABJACK)
 // })
-// path = '/dev/cu.usbmodem1411'
-// var board = require('./bxdx/bx-firmata.js')(path)
+// var board = require('./bxdx/bx-firmata.js')('/dev/cu.usbmodem1411')
 // board.emitter.on('ready', function () {
 //   console.log('FIRMATA ready')
 //   bxdx(devices, store, board, configuration.FIRMATA)
