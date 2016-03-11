@@ -25,7 +25,6 @@ function choice (state, action) {
   }
 }
 
-
 function status (state, action) {
   if (typeof state === 'undefined') {
     return false
@@ -43,9 +42,9 @@ function timer (state, action) {
     return null
   }
   switch (action.type) {
-    case actionsCo.TIMER_STARTED:
-    case actionsCo.TIMER_STOPPED:
-      return action.payload
+    case actionsCo.PAUSE:
+    case actionsCh.CHOICE:
+      return action.timer
     default:
       return state
   }
