@@ -2,16 +2,31 @@
  * action types
  */
 
+const CHOICE = 'CHOICE'
+const TIMEOUT = 'TIMEOUT'
 const RESET = 'RESET'
 const PAUSE = 'PAUSE'
-const TIMEOUT = 'TIMEOUT'
 
 /*
  * action creators
  */
 
+function next () {
+  return Math.round(Math.random())
+}
+
 function timeout() {
-  return {type: TIMEOUT, next: Math.round(Math.random())}
+  return {type: TIMEOUT, next: next()}
+}
+
+function response(value) {
+  return (dispatch, getState) => {
+    clearInterval(getState().timer)    
+    var timerId = setInterval(() => {
+        dispatch(timeout())
+      }, 5000)
+    dispatch({type: CHOICE, value: value, next: next(), timer: timerId})
+  }
 }
 
 function reset() {
@@ -38,9 +53,11 @@ function pause() {
  */
 
 module.exports = {
+  CHOICE: CHOICE,
+  TIMEOUT: TIMEOUT,
   RESET: RESET,
   PAUSE: PAUSE,
-  TIMEOUT: TIMEOUT,
+  response: response,
   pause: pause,
   reset: reset
 }

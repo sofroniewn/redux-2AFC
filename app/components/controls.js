@@ -1,6 +1,6 @@
 var hx = require('hxdx').hx
 var dx = require('hxdx').dx
-var actions = require('../actions/controls.js')
+var actions = require('../actions')
 
 module.exports = function (state) {
   function reset () {

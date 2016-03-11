@@ -1,4 +1,4 @@
-var actions = require('../actions/choice.js')
+var actions = require('../actions')
 
 module.exports = function (enabled, dispatch) {
   function zero () {

@@ -1,25 +1,24 @@
 var combineReducers = require('redux').combineReducers
-var actionsCh = require('../actions/choice.js')
-var actionsCo = require('../actions/controls.js')
+var actions = require('../actions')
 
 function choice (state, action) {
   if (typeof state === 'undefined') {
-    return {value: 0, correct: 0, wrong: 0, missed: 0}
+    return {target: 0, correct: 0, wrong: 0, missed: 0}
   }
   switch (action.type) {
-    case actionsCh.CHOICE:
-      switch (state.value === action.value) {
+    case actions.CHOICE:
+      switch (state.target === action.value) {
         case true:
-          return {value: action.next, correct: state.correct + 1, wrong: state.wrong, missed: state.missed}
+          return {target: action.next, correct: state.correct + 1, wrong: state.wrong, missed: state.missed}
         case false:
-          return {value: action.next, correct: state.correct, wrong: state.wrong + 1, missed: state.missed}
+          return {target: action.next, correct: state.correct, wrong: state.wrong + 1, missed: state.missed}
         default:
            return state
       }
-    case actionsCh.TIMEOUT:
-      return {value: action.next, correct: state.correct, wrong: state.wrong, missed: state.missed + 1}        
-    case actionsCo.RESET:
-      return {value: state.value, correct: 0, wrong: 0, missed: 0}
+    case actions.TIMEOUT:
+      return {target: action.next, correct: state.correct, wrong: state.wrong, missed: state.missed + 1}        
+    case actions.RESET:
+      return {target: state.target, correct: 0, wrong: 0, missed: 0}
     default:
       return state
   }
@@ -30,7 +29,7 @@ function status (state, action) {
     return false
   }
   switch (action.type) {
-    case actionsCo.PAUSE:
+    case actions.PAUSE:
       return !state
     default:
       return state
@@ -42,8 +41,8 @@ function timer (state, action) {
     return null
   }
   switch (action.type) {
-    case actionsCo.PAUSE:
-    case actionsCh.CHOICE:
+    case actions.PAUSE:
+    case actions.CHOICE:
       return action.timer
     default:
       return state
