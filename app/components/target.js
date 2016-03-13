@@ -4,7 +4,7 @@ module.exports = function (state) {
   return hx`
     <div>
       <p>
-        <span>${state.choice.value}</span>
+        <span>${state.target}</span>
       </p>
     </div>`
 }

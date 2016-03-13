@@ -1,52 +1,41 @@
+now = require('performance-now')
 /*
  * action types
  */
 
 const CHOICE = 'CHOICE'
 const TIMEOUT = 'TIMEOUT'
+const NEXT = 'NEXT'
 const RESET = 'RESET'
-const PAUSE = 'PAUSE'
+const START = 'START'
+const TICK = 'TICK'
 
 /*
  * action creators
  */
 
-function next () {
-  return Math.round(Math.random())
-}
-
 function timeout() {
-  return {type: TIMEOUT, next: next()}
+  return {type: TIMEOUT, target: Math.round(Math.random())}
 }
 
-function response(value) {
-  return (dispatch, getState) => {
-    if (getState().status) {
-      clearInterval(getState().timer)    
-      var timerId = setInterval(() => {
-          dispatch(timeout())
-        }, 5000)
-      dispatch({type: CHOICE, value: value, next: next(), timer: timerId})
-    }
-  }
+function tick() {
+  return {type: TICK}
 }
 
 function reset() {
   return {type: RESET}
 }
 
-function pause() {
+function start() {
+  return {type: START}
+}
+
+function response(value) {
   return (dispatch, getState) => {
-    var timerId = getState().timer
-    if (timerId === null) {
-      var timerId = setInterval(() => {
-        dispatch(timeout())
-      }, 5000)
-    } else {
-      clearInterval(getState().timer)    
-      timerId = null
+    state = getState()
+    if (state.playing) {
+      dispatch({type: CHOICE, value: value, target: Math.round(Math.random())})
     }
-    dispatch({type: PAUSE, timer: timerId})
   }
 }
 
@@ -54,12 +43,16 @@ function pause() {
  * exports
  */
 
-module.exports = {
-  CHOICE: CHOICE,
-  TIMEOUT: TIMEOUT,
-  RESET: RESET,
-  PAUSE: PAUSE,
+module.exports = {constants: {
+    CHOICE: CHOICE,
+    TIMEOUT: TIMEOUT,
+    RESET: RESET,
+    START: START,
+    NEXT: NEXT,
+    TICK: TICK},
   response: response,
-  pause: pause,
-  reset: reset
+  start: start,
+  reset: reset,
+  tick: tick,
+  timeout:timeout
 }

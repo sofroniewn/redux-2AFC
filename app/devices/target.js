@@ -1,8 +1,8 @@
 module.exports = function (state, dispatch) {
   var value = [0, 0]
   
-  if (state.status === true) {
-    value[state.choice.target] = 1
+  if (state.playing === true) {
+    value[state.target] = 1
   }
 
   return {

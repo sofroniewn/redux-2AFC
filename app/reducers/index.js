@@ -1,53 +1,38 @@
-var combineReducers = require('redux').combineReducers
+//var combineReducers = require('redux').combineReducers
 var actions = require('../actions')
+var assign = require('object-assign')
+var o = actions.constants
 
-function choice (state, action) {
+function task (state, action) {
   if (typeof state === 'undefined') {
-    return {target: 0, correct: 0, wrong: 0, missed: 0}
+    return {playing: false, target: 0, remaining: 10, duration: 10, correct: 0, wrong: 0, missed: 0, response: false}
   }
   switch (action.type) {
-    case actions.CHOICE:
-      switch (state.target === action.value) {
-        case true:
-          return {target: action.next, correct: state.correct + 1, wrong: state.wrong, missed: state.missed}
-        case false:
-          return {target: action.next, correct: state.correct, wrong: state.wrong + 1, missed: state.missed}
-        default:
-           return state
+    case o.CHOICE:
+      if (state.target === action.value) {
+        return assign({}, state, {target: action.target, correct: state.correct + 1, response: true})
+      } else {
+        return assign({}, state, {target: action.target, wrong: state.wrong + 1, response: true})
       }
-    case actions.TIMEOUT:
-      return {target: action.next, correct: state.correct, wrong: state.wrong, missed: state.missed + 1}        
-    case actions.RESET:
-      return {target: state.target, correct: 0, wrong: 0, missed: 0}
+    case o.TIMEOUT:
+      return assign({}, state, {target: action.target, missed: state.missed + 1, response: false})
+    case o.RESET:
+      return assign({}, state, {playing: false, remaining: state.duration, correct: 0, wrong: 0, missed: 0, response: false})
+    case o.START:
+      if (state.playing) {
+        return assign({}, state, {playing: false, response: false})
+      } else {
+        if (state.remaining === 0) {
+          return assign({}, state, {playing: true, remaining: state.duration, correct: 0, wrong: 0, missed: 0, response: false})
+        } else {
+          return assign({}, state, {playing: true, response: false})
+        }
+      }
+    case o.TICK:
+      return assign({}, state, {remaining: state.remaining-1, response: false})
     default:
-      return state
+      return assign({}, state, {response: false})
   }
 }
 
-function status (state, action) {
-  if (typeof state === 'undefined') {
-    return false
-  }
-  switch (action.type) {
-    case actions.PAUSE:
-      return !state
-    default:
-      return state
-  }
-}
-
-function timer (state, action) {
-  if (typeof state === 'undefined') {
-    return null
-  }
-  switch (action.type) {
-    case actions.PAUSE:
-    case actions.CHOICE:
-      return action.timer
-    default:
-      return state
-  }
-}
-
-module.exports = combineReducers({choice,
-  status, timer})
+module.exports = task //combineReducers({task, status})
